@@ -1,0 +1,170 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-lg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-width: 0;
+}
+
+.card:hover {
+  border-color: var(--color-border-focus);
+}
+
+.compact {
+  padding: 8px;
+  gap: 6px;
+}
+
+.detailed {
+  padding: 16px;
+  gap: 12px;
+}
+
+.comparison {
+  padding: 12px;
+  gap: 8px;
+  border-width: 2px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.layerBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-mono);
+  border-radius: var(--border-radius-full);
+  background: var(--color-background-tertiary);
+  color: var(--color-foreground-secondary);
+  white-space: nowrap;
+}
+
+.layer-0 { background: hsl(0, 70%, 90%); color: hsl(0, 70%, 30%); }
+.layer-1 { background: hsl(30, 70%, 90%); color: hsl(30, 70%, 30%); }
+.layer-2 { background: hsl(60, 70%, 90%); color: hsl(60, 70%, 30%); }
+.layer-3 { background: hsl(90, 70%, 90%); color: hsl(90, 70%, 30%); }
+.layer-4 { background: hsl(120, 70%, 90%); color: hsl(120, 70%, 30%); }
+.layer-5 { background: hsl(150, 70%, 90%); color: hsl(150, 70%, 30%); }
+.layer-6 { background: hsl(180, 70%, 90%); color: hsl(180, 70%, 30%); }
+.layer-7 { background: hsl(210, 70%, 90%); color: hsl(210, 70%, 30%); }
+.layer-8 { background: hsl(240, 70%, 90%); color: hsl(240, 70%, 30%); }
+.layer-9 { background: hsl(270, 70%, 90%); color: hsl(270, 70%, 30%); }
+.layer-10 { background: hsl(300, 70%, 90%); color: hsl(300, 70%, 30%); }
+.layer-11 { background: hsl(330, 70%, 90%); color: hsl(330, 70%, 30%); }
+.layer-12 { background: hsl(0, 70%, 85%); color: hsl(0, 70%, 25%); }
+.layer-13 { background: hsl(30, 70%, 85%); color: hsl(30, 70%, 25%); }
+.layer-14 { background: hsl(60, 70%, 85%); color: hsl(60, 70%, 25%); }
+.layer-15 { background: hsl(90, 70%, 85%); color: hsl(90, 70%, 25%); }
+.layer-16 { background: hsl(120, 70%, 85%); color: hsl(120, 70%, 25%); }
+.layer-17 { background: hsl(150, 70%, 85%); color: hsl(150, 70%, 25%); }
+.layer-18 { background: hsl(180, 70%, 85%); color: hsl(180, 70%, 25%); }
+.layer-19 { background: hsl(210, 70%, 85%); color: hsl(210, 70%, 25%); }
+.layer-20 { background: hsl(240, 70%, 85%); color: hsl(240, 70%, 25%); }
+.layer-21 { background: hsl(270, 70%, 85%); color: hsl(270, 70%, 25%); }
+.layer-22 { background: hsl(300, 70%, 85%); color: hsl(300, 70%, 25%); }
+.layer-23 { background: hsl(330, 70%, 85%); color: hsl(330, 70%, 25%); }
+.layer-24 { background: hsl(0, 70%, 80%); color: hsl(0, 70%, 20%); }
+.layer-25 { background: hsl(30, 70%, 80%); color: hsl(30, 70%, 20%); }
+.layer-26 { background: hsl(60, 70%, 80%); color: hsl(60, 70%, 20%); }
+.layer-27 { background: hsl(90, 70%, 80%); color: hsl(90, 70%, 20%); }
+.layer-28 { background: hsl(120, 70%, 80%); color: hsl(120, 70%, 20%); }
+.layer-29 { background: hsl(150, 70%, 80%); color: hsl(150, 70%, 20%); }
+.layer-30 { background: hsl(180, 70%, 80%); color: hsl(180, 70%, 20%); }
+.layer-31 { background: hsl(210, 70%, 80%); color: hsl(210, 70%, 20%); }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bookmarkBtn,
+.compareBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  color: var(--color-foreground-tertiary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.bookmarkBtn:hover,
+.compareBtn:hover {
+  background: var(--color-background-tertiary);
+  color: var(--color-foreground-primary);
+}
+
+.bookmarkBtn:focus-visible,
+.compareBtn:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.bookmarkBtn.active {
+  color: var(--color-brand-primary);
+}
+
+.activation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sparkline {
+  flex: 1;
+  min-width: 0;
+}
+
+.maxAct {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-foreground-primary);
+  white-space: nowrap;
+}
+
+.tokens {
+  min-height: 28px;
+}
+
+.semanticLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-foreground-secondary);
+  line-height: var(--line-height-normal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.semanticLabel em {
+  color: var(--color-foreground-tertiary);
+  font-style: italic;
+}
+
+.description {
+  font-size: var(--font-size-xs);
+  color: var(--color-foreground-tertiary);
+  line-height: var(--line-height-relaxed);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

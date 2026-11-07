@@ -1,0 +1,124 @@
+.card {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-secondary);
+}
+
+/* Variants */
+.default {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+}
+
+.outlined {
+  background-color: transparent;
+  border-width: 2px;
+}
+
+.elevated {
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+.filled {
+  background-color: var(--color-bg-secondary);
+  border: none;
+}
+
+[data-theme="dark"] .filled {
+  background-color: var(--color-bg-tertiary);
+}
+
+/* Padding */
+.paddingNone {
+  padding: 0;
+}
+
+.paddingSm {
+  padding: var(--spacing-sm);
+}
+
+.paddingMd {
+  padding: var(--spacing-md);
+}
+
+.paddingLg {
+  padding: var(--spacing-lg);
+}
+
+/* Hoverable */
+.hoverable {
+  cursor: pointer;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.headerContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--token-typography-font-size-lg);
+  font-weight: var(--token-typography-font-weight-semibold);
+  color: var(--color-fg-primary);
+  margin: 0;
+  line-height: var(--token-typography-line-height-tight);
+}
+
+.subtitle {
+  font-size: var(--token-typography-font-size-sm);
+  color: var(--color-fg-tertiary);
+  margin: var(--spacing-xs) 0 0;
+  line-height: var(--token-typography-line-height-normal);
+}
+
+.headerAction {
+  flex-shrink: 0;
+}
+
+/* Content */
+.content {
+  padding: var(--spacing-md);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+/* Compound component styles */
+.card :global(.cardHeader) {
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.card :global(.cardContent) {
+  padding: var(--spacing-md);
+}
+
+.card :global(.cardFooter) {
+  border-top: 1px solid var(--color-border-primary);
+  padding: var(--spacing-md);
+}

@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: var(--color-foreground-tertiary);
+  font-size: var(--font-size-base);
+  padding: var(--spacing-xl);
+  text-align: center;
+}

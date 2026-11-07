@@ -1,0 +1,259 @@
+/* Design Tokens - CSS Custom Properties */
+/* Light theme (default) */
+:root {
+  /* Colors - Background */
+  --token-colors-background-primary: #ffffff;
+  --token-colors-background-secondary: #f8fafc;
+  --token-colors-background-tertiary: #f1f5f9;
+  --token-colors-background-inverse: #0f172a;
+
+  /* Colors - Foreground */
+  --token-colors-foreground-primary: #0f172a;
+  --token-colors-foreground-secondary: #334155;
+  --token-colors-foreground-tertiary: #64748b;
+  --token-colors-foreground-inverse: #f8fafc;
+
+  /* Colors - Border */
+  --token-colors-border-primary: #e2e8f0;
+  --token-colors-border-secondary: #cbd5e1;
+  --token-colors-border-focus: #3b82f6;
+  --token-colors-border-error: #ef4444;
+
+  /* Colors - Brand */
+  --token-colors-brand-primary: #3b82f6;
+  --token-colors-brand-primary-hover: #2563eb;
+  --token-colors-brand-primary-active: #1d4ed8;
+  --token-colors-brand-secondary: #8b5cf6;
+  --token-colors-brand-secondary-hover: #7c3aed;
+  --token-colors-brand-secondary-active: #6d28d9;
+
+  /* Colors - Semantic */
+  --token-colors-semantic-success: #22c55e;
+  --token-colors-semantic-success-hover: #16a34a;
+  --token-colors-semantic-warning: #f59e0b;
+  --token-colors-semantic-warning-hover: #d97706;
+  --token-colors-semantic-error: #ef4444;
+  --token-colors-semantic-error-hover: #dc2626;
+  --token-colors-semantic-info: #3b82f6;
+  --token-colors-semantic-info-hover: #2563eb;
+
+  /* Colors - Overlay */
+  --token-colors-overlay-backdrop: rgba(15, 23, 42, 0.5);
+  --token-colors-overlay-modal: #ffffff;
+  --token-colors-overlay-tooltip: #1e293b;
+
+  /* Spacing */
+  --token-spacing-xs: 0.25rem;
+  --token-spacing-sm: 0.5rem;
+  --token-spacing-md: 1rem;
+  --token-spacing-lg: 1.5rem;
+  --token-spacing-xl: 2rem;
+  --token-spacing-2xl: 3rem;
+  --token-spacing-3xl: 4rem;
+  --token-spacing-4xl: 6rem;
+
+  /* Typography - Font Family */
+  --token-typography-font-family-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --token-typography-font-family-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  --token-typography-font-family-display: "Cal Sans", Inter, system-ui, sans-serif;
+
+  /* Typography - Font Size */
+  --token-typography-font-size-xs: 0.75rem;
+  --token-typography-font-size-sm: 0.875rem;
+  --token-typography-font-size-base: 1rem;
+  --token-typography-font-size-lg: 1.125rem;
+  --token-typography-font-size-xl: 1.25rem;
+  --token-typography-font-size-2xl: 1.5rem;
+  --token-typography-font-size-3xl: 1.875rem;
+  --token-typography-font-size-4xl: 2.25rem;
+
+  /* Typography - Font Weight */
+  --token-typography-font-weight-normal: 400;
+  --token-typography-font-weight-medium: 500;
+  --token-typography-font-weight-semibold: 600;
+  --token-typography-font-weight-bold: 700;
+
+  /* Typography - Line Height */
+  --token-typography-line-height-tight: 1.25;
+  --token-typography-line-height-normal: 1.5;
+  --token-typography-line-height-relaxed: 1.75;
+
+  /* Typography - Letter Spacing */
+  --token-typography-letter-spacing-tight: -0.02em;
+  --token-typography-letter-spacing-normal: 0;
+  --token-typography-letter-spacing-wide: 0.02em;
+
+  /* Border Radius */
+  --token-border-radius-none: 0;
+  --token-border-radius-sm: 0.25rem;
+  --token-border-radius-md: 0.375rem;
+  --token-border-radius-lg: 0.5rem;
+  --token-border-radius-xl: 0.75rem;
+  --token-border-radius-full: 9999px;
+
+  /* Shadows */
+  --token-shadows-none: none;
+  --token-shadows-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --token-shadows-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --token-shadows-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --token-shadows-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --token-shadows-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --token-shadows-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --token-shadows-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+  /* Transitions */
+  --token-transitions-fast: 150ms;
+  --token-transitions-normal: 200ms;
+  --token-transitions-slow: 300ms;
+  --token-transitions-easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --token-transitions-easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --token-transitions-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --token-transitions-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-Index */
+  --token-z-index-dropdown: 100;
+  --token-z-index-sticky: 200;
+  --token-z-index-modal: 500;
+  --token-z-index-popover: 600;
+  --token-z-index-tooltip: 700;
+  --token-z-index-toast: 800;
+
+  /* Breakpoints */
+  --token-breakpoints-sm: 640px;
+  --token-breakpoints-md: 768px;
+  --token-breakpoints-lg: 1024px;
+  --token-breakpoints-xl: 1280px;
+  --token-breakpoints-2xl: 1536px;
+
+  /* Motion */
+  --token-motion-respect-reduced-motion: 1;
+  --token-motion-reduced-motion-multiplier: 0.01;
+  --token-motion-default-duration: 200ms;
+  --token-motion-spring-stiffness: 300;
+  --token-motion-spring-damping: 30;
+  --token-motion-spring-mass: 1;
+
+  /* Focus Ring */
+  --token-focus-ring-width: 2px;
+  --token-focus-ring-offset: 2px;
+  --token-focus-ring-color: var(--token-colors-border-focus);
+
+  /* Component-specific tokens */
+  --token-component-button-height-sm: 2rem;
+  --token-component-button-height-md: 2.5rem;
+  --token-component-button-height-lg: 3rem;
+  --token-component-button-height-xl: 3.5rem;
+
+  --token-component-input-height-sm: 2rem;
+  --token-component-input-height-md: 2.5rem;
+  --token-component-input-height-lg: 3rem;
+
+  --token-component-card-padding-sm: 0.75rem;
+  --token-component-card-padding-md: 1rem;
+  --token-component-card-padding-lg: 1.5rem;
+
+  --token-component-badge-height-sm: 1.25rem;
+  --token-component-badge-height-md: 1.5rem;
+  --token-component-badge-height-lg: 1.75rem;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --token-colors-background-primary: #0f172a;
+  --token-colors-background-secondary: #1e293b;
+  --token-colors-background-tertiary: #334155;
+  --token-colors-background-inverse: #f8fafc;
+
+  --token-colors-foreground-primary: #f8fafc;
+  --token-colors-foreground-secondary: #e2e8f0;
+  --token-colors-foreground-tertiary: #94a3b8;
+  --token-colors-foreground-inverse: #0f172a;
+
+  --token-colors-border-primary: #334155;
+  --token-colors-border-secondary: #475569;
+  --token-colors-border-focus: #60a5fa;
+  --token-colors-border-error: #f87171;
+
+  --token-colors-brand-primary: #60a5fa;
+  --token-colors-brand-primary-hover: #3b82f6;
+  --token-colors-brand-primary-active: #2563eb;
+  --token-colors-brand-secondary: #a78bfa;
+  --token-colors-brand-secondary-hover: #8b5cf6;
+  --token-colors-brand-secondary-active: #7c3aed;
+
+  --token-colors-semantic-success: #4ade80;
+  --token-colors-semantic-success-hover: #22c55e;
+  --token-colors-semantic-warning: #fbbf24;
+  --token-colors-semantic-warning-hover: #f59e0b;
+  --token-colors-semantic-error: #f87171;
+  --token-colors-semantic-error-hover: #ef4444;
+  --token-colors-semantic-info: #60a5fa;
+  --token-colors-semantic-info-hover: #3b82f6;
+
+  --token-colors-overlay-backdrop: rgba(0, 0, 0, 0.7);
+  --token-colors-overlay-modal: #1e293b;
+  --token-colors-overlay-tooltip: #f1f5f9;
+
+  --token-focus-ring-color: var(--token-colors-border-focus);
+}
+
+/* High contrast theme */
+[data-theme="high-contrast"] {
+  --token-colors-background-primary: #ffffff;
+  --token-colors-background-secondary: #f0f0f0;
+  --token-colors-background-tertiary: #e0e0e0;
+  --token-colors-background-inverse: #000000;
+
+  --token-colors-foreground-primary: #000000;
+  --token-colors-foreground-secondary: #1a1a1a;
+  --token-colors-foreground-tertiary: #333333;
+  --token-colors-foreground-inverse: #ffffff;
+
+  --token-colors-border-primary: #000000;
+  --token-colors-border-secondary: #333333;
+  --token-colors-border-focus: #0000ff;
+  --token-colors-border-error: #cc0000;
+
+  --token-colors-brand-primary: #0000cc;
+  --token-colors-brand-primary-hover: #000099;
+  --token-colors-brand-primary-active: #000066;
+  --token-colors-brand-secondary: #6600cc;
+  --token-colors-brand-secondary-hover: #4d0099;
+  --token-colors-brand-secondary-active: #330066;
+
+  --token-colors-semantic-success: #006600;
+  --token-colors-semantic-success-hover: #004d00;
+  --token-colors-semantic-warning: #cc6600;
+  --token-colors-semantic-warning-hover: #994d00;
+  --token-colors-semantic-error: #cc0000;
+  --token-colors-semantic-error-hover: #990000;
+  --token-colors-semantic-info: #0000cc;
+  --token-colors-semantic-info-hover: #000099;
+
+  --token-colors-overlay-backdrop: rgba(0, 0, 0, 0.8);
+  --token-colors-overlay-modal: #ffffff;
+  --token-colors-overlay-tooltip: #000000;
+
+  --token-focus-ring-color: var(--token-colors-border-focus);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --token-motion-respect-reduced-motion: 1;
+    --token-transitions-fast: 0.01ms;
+    --token-transitions-normal: 0.01ms;
+    --token-transitions-slow: 0.01ms;
+  }
+}
+
+/* High contrast mode (OS-level) */
+@media (prefers-contrast: more) {
+  :root:not([data-theme="high-contrast"]) {
+    --token-colors-border-primary: #000000;
+    --token-colors-border-secondary: #333333;
+    --token-colors-border-focus: #0000ff;
+    --token-focus-ring-width: 3px;
+    --token-focus-ring-offset: 3px;
+  }
+}

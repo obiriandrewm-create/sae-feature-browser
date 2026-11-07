@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  min-height: 28px;
+}
+
+.token {
+  cursor: default;
+  user-select: none;
+}
+
+.tokenValue {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.tokenMore {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--color-background-tertiary);
+  border-radius: var(--border-radius-full);
+  font-style: italic;
+}

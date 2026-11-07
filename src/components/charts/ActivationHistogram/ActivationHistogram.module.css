@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 6px 10px;
+  background: var(--color-foreground-inverse);
+  color: var(--color-background-primary);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family-sans);
+  border-radius: var(--border-radius-sm);
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+  z-index: var(--z-index-tooltip);
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  line-height: 1.4;
+}
+
+.tooltip strong {
+  display: block;
+  margin-bottom: 2px;
+}

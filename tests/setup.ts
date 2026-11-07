@@ -29,12 +29,12 @@ Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
   }),
 });
 
-HTMLCanvasElement.prototype.getContext = vi.fn(() => ({
+const mockCanvasContext = {
   fillRect: vi.fn(),
   clearRect: vi.fn(),
-  getImageData: vi.fn(() => ({ data: [] })),
+  getImageData: vi.fn(() => ({ data: new Uint8ClampedArray(4) })),
   putImageData: vi.fn(),
-  createImageData: vi.fn(),
+  createImageData: vi.fn(() => ({ data: new Uint8ClampedArray(4), width: 1, height: 1 })),
   setTransform: vi.fn(),
   drawImage: vi.fn(),
   save: vi.fn(),
@@ -54,7 +54,43 @@ HTMLCanvasElement.prototype.getContext = vi.fn(() => ({
   measureText: vi.fn(() => ({ width: 0 })),
   fillText: vi.fn(),
   strokeText: vi.fn(),
-}));
+  canvas: {} as HTMLCanvasElement,
+  globalAlpha: 1,
+  globalCompositeOperation: 'source-over',
+  clip: vi.fn(),
+  direction: 'ltr',
+  fillStyle: '#000000',
+  filter: 'none',
+  font: '10px sans-serif',
+  imageSmoothingEnabled: true,
+  imageSmoothingQuality: 'low',
+  lineCap: 'butt',
+  lineDashOffset: 0,
+  lineJoin: 'miter',
+  lineWidth: 1,
+  miterLimit: 10,
+  shadowBlur: 0,
+  shadowColor: '#000000',
+  shadowOffsetX: 0,
+  shadowOffsetY: 0,
+  strokeStyle: '#000000',
+  textAlign: 'start',
+  textBaseline: 'alphabetic',
+  getLineDash: vi.fn(() => []),
+  setLineDash: vi.fn(),
+  getTransform: vi.fn(() => ({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 })),
+  isPointInPath: vi.fn(() => false),
+  isPointInStroke: vi.fn(() => false),
+  quadraticCurveTo: vi.fn(),
+  bezierCurveTo: vi.fn(),
+  ellipse: vi.fn(),
+  roundRect: vi.fn(),
+};
+
+HTMLCanvasElement.prototype.getContext = vi.fn((contextId: string) => {
+  if (contextId === '2d') return mockCanvasContext;
+  return null;
+});
 
 window.matchMedia = vi.fn().mockImplementation((query) => ({
   matches: false,
