@@ -1,0 +1,97 @@
+{
+  "name": "sae-feature-browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:mock": "vite --mode mock",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check --apply .",
+    "lint:check": "biome check .",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:a11y": "axe \"$PREVIEW_URL\" --tags wcag2a,wcag2aa,wcag21aa --stdout",
+    "preview": "vite preview",
+    "check:fast": "tsc --noEmit && biome check . && gitleaks dir . --redact --no-banner",
+    "check:task": "npm run check:fast && npm run test && node scripts/check-coverage.mjs",
+    "check:security": "semgrep scan --config p/default --strict --json > semgrep-results.json && node scripts/quality-gate.mjs semgrep semgrep-results.json && osv-scanner scan source -r .",
+    "check:a11y": "axe \"$PREVIEW_URL\" --tags wcag2a,wcag2aa,wcag21aa --stdout > axe-results.json && node scripts/quality-gate.mjs axe axe-results.json",
+    "check:perf": "lighthouse \"$PREVIEW_URL\" --output=json --quiet > lh-results.json && node scripts/quality-gate.mjs lighthouse lh-results.json",
+    "check:size": "size-limit --json",
+    "check:full": "npm run check:task && npm run check:security && npm run check:a11y && npm run check:perf && npm run check:size",
+    "data:generate": "node scripts/generate-mocks.mjs",
+    "data:index": "node scripts/build-search-index.mjs",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "@tanstack/react-query": "^5.56.2",
+    "zustand": "^4.5.5",
+    "d3": "^7.9.0",
+    "three": "^0.160.0",
+    "framer-motion": "^11.5.4",
+    "gsap": "^3.12.5",
+    "flexsearch": "^0.7.43",
+    "apache-arrow": "^17.0.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.2",
+    "zod": "^3.23.8",
+    "date-fns": "^3.6.0",
+    "lucide-react": "^0.441.0",
+    "idb": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@types/d3": "^7.4.3",
+    "@types/three": "^0.160.0",
+    "@types/node": "^22.5.4",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.5",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vitest": "^2.1.1",
+    "@vitest/coverage-v8": "^2.1.1",
+    "@playwright/test": "^1.47.2",
+    "@axe-core/cli": "^4.10.0",
+    "biome": "^1.8.3",
+    "gitleaks": "^8.18.2",
+    "semgrep": "^1.105.0",
+    "osv-scanner": "^1.8.0",
+    "lighthouse": "^12.1.0",
+    "size-limit": "^11.1.6",
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@size-limit/preset-big-lib": "^11.1.6",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "comlink": "^4.4.1"
+  },
+  "size-limit": [
+    {
+      "path": "dist/assets/index-*.js",
+      "limit": "150 kB",
+      "gzip": true
+    },
+    {
+      "path": "dist/assets/viz-*.js",
+      "limit": "120 kB",
+      "gzip": true
+    },
+    {
+      "path": "dist/assets/worker-*.js",
+      "limit": "50 kB",
+      "gzip": true
+    }
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "npm@10.8.2"
+}
