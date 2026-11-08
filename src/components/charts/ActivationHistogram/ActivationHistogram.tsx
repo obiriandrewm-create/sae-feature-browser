@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { useRef, useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import styles from './ActivationHistogram.module.css';
 
@@ -36,9 +36,9 @@ export const ActivationHistogram = ({
 }: ActivationHistogramProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const [hoveredBin, setHoveredBin] = useState<number | null>(null);
 
   const histogramData = useMemo(() => {
+    if (!data.length || maxActivation <= 0) return [];
     const thresholds = d3
       .range(bins + 1)
       .map((i) => (i / bins) * maxActivation);
@@ -52,22 +52,23 @@ export const ActivationHistogram = ({
   );
 
   const maxCount = useMemo(
-    () => Math.max(...histogramData.map((bin) => bin.length)),
+    () => Math.max(1, ...histogramData.map((bin) => bin.length)),
     [histogramData]
   );
 
   const mean = useMemo(
-    () => data.reduce((sum, v) => sum + v, 0) / data.length,
+    () => data.length > 0 ? data.reduce((sum, v) => sum + v, 0) / data.length : 0,
     [data]
   );
 
   const percentiles = useMemo(() => {
+    if (!data.length) return { p50: 0, p90: 0, p95: 0, p99: 0 };
     const sorted = [...data].sort((a, b) => a - b);
     return {
-      p50: sorted[Math.floor(sorted.length * 0.5)],
-      p90: sorted[Math.floor(sorted.length * 0.9)],
-      p95: sorted[Math.floor(sorted.length * 0.95)],
-      p99: sorted[Math.floor(sorted.length * 0.99)],
+      p50: sorted[Math.floor(sorted.length * 0.5)] ?? 0,
+      p90: sorted[Math.floor(sorted.length * 0.9)] ?? 0,
+      p95: sorted[Math.floor(sorted.length * 0.95)] ?? 0,
+      p99: sorted[Math.floor(sorted.length * 0.99)] ?? 0,
     };
   }, [data]);
 
@@ -130,7 +131,7 @@ export const ActivationHistogram = ({
     bars
       .join('rect')
       .attr('class', 'histogram-bar')
-      .attr('x', (d) => xScale(d.x0))
+      .attr('x', (d) => xScale(d.x0 ?? 0))
       .attr('y', (d) => yScale(d.length))
       .attr('width', Math.max(1, binWidth - 1))
       .attr('height', (d) => height - yScale(d.length))
@@ -138,20 +139,18 @@ export const ActivationHistogram = ({
       .attr('fill-opacity', 0.7)
       .attr('rx', 1)
       .style('cursor', onBinClick ? 'pointer' : 'default')
-      .on('mouseenter', function (event, d) {
-        const binIndex = histogramData.indexOf(d);
-        setHoveredBin(binIndex);
+      .on('mouseenter', function (_event, d) {
         d3.select(this).attr('fill-opacity', 1).attr('stroke', 'var(--color-foreground-inverse)').attr('stroke-width', 1);
 
-        if (showTooltip && tooltipRef.current) {
+        if (showTooltip && tooltipRef.current && d.x0 !== undefined && d.x1 !== undefined) {
           const binStart = d.x0.toFixed(3);
           const binEnd = d.x1.toFixed(3);
-          const percentage = ((d.length / totalCount) * 100).toFixed(1);
+          const percentage = totalCount > 0 ? ((d.length / totalCount) * 100).toFixed(1) : '0';
           tooltipRef.current.innerHTML = `
             <strong>${binStart} – ${binEnd}</strong><br/>
             Count: ${d.length.toLocaleString()} (${percentage}%)
           `;
-          const rect = (event.target as SVGRectElement).getBoundingClientRect();
+          const rect = (this as SVGRectElement).getBoundingClientRect();
           const svgRect = svgRef.current!.getBoundingClientRect();
           tooltipRef.current.style.left = `${rect.left - svgRect.left + rect.width / 2}px`;
           tooltipRef.current.style.top = `${rect.top - svgRect.top - 8}px`;
@@ -160,14 +159,13 @@ export const ActivationHistogram = ({
         }
       })
       .on('mouseleave', function () {
-        setHoveredBin(null);
         d3.select(this).attr('fill-opacity', 0.7).attr('stroke', 'none');
         if (tooltipRef.current) {
           tooltipRef.current.style.opacity = '0';
         }
       })
-      .on('click', function (event, d) {
-        if (onBinClick) {
+      .on('click', function (_event, d) {
+        if (onBinClick && d.x0 !== undefined && d.x1 !== undefined) {
           const binIndex = histogramData.indexOf(d);
           onBinClick(binIndex, [d.x0, d.x1], d.length);
         }

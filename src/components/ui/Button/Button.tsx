@@ -1,118 +1,44 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import styles from './Button.module.css';
 
-export interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  isLoading?: boolean;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-  fullWidth?: boolean;
-  children: ReactNode;
+export interface ButtonProps extends Omit<React.ComponentPropsWithoutRef<'button'>, 'ref' | 'onAnimationStart'> {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant = 'primary',
-      size = 'md',
-      isLoading = false,
-      leftIcon,
-      rightIcon,
-      fullWidth = false,
-      children,
-      className,
-      disabled,
-      style,
-      ...props
-    },
-    ref
-  ) => {
-    const isDisabled = disabled || isLoading;
+  ({ className, variant = 'primary', size = 'md', children, ...props }, ref) => {
+    const variants = {
+      primary: 'bg-accent text-accent-strong border-none hover:bg-accent-hover',
+      secondary: 'bg-transparent border border-border hover:bg-accent-dim hover:text-accent',
+      ghost: 'bg-transparent text-text-muted hover:text-text hover:bg-surface',
+      danger: 'bg-transparent border border-danger text-danger hover:bg-danger-dim hover:text-danger',
+    } as const;
+
+    const sizes = {
+      sm: 'px-2 py-1 text-xs',
+      md: 'px-4 py-2 text-sm',
+      lg: 'px-6 py-3 text-base',
+    } as const;
 
     return (
       <motion.button
         ref={ref}
         className={cn(
-          styles.button,
-          styles[variant],
-          styles[size],
-          fullWidth && styles.fullWidth,
-          isLoading && styles.loading,
+          'inline-flex items-center justify-center rounded-full font-medium transition-all duration-150',
+          variants[variant],
+          sizes[size],
           className
         )}
-        disabled={isDisabled}
-        style={style}
-        whileHover={isDisabled ? undefined : { scale: 1.02 }}
-        whileTap={isDisabled ? undefined : { scale: 0.98 }}
-        focusVisibleClassName={styles.focusVisible}
-        aria-busy={isLoading}
-        aria-disabled={isDisabled}
-        {...props}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        {...(props as Record<string, unknown>)}
       >
-        {isLoading ? (
-          <span className={styles.spinner} aria-hidden="true">
-            <svg
-              className={styles.spinnerIcon}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
-              <path
-                d="M12 2a10 10 0 0 1 10 10"
-                strokeLinecap="round"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  type="rotate"
-                  from="0 12 12"
-                  to="360 12 12"
-                  dur="1s"
-                  repeatCount="indefinite"
-                />
-              </path>
-            </svg>
-          </span>
-        ) : (
-          <>
-            {leftIcon && <span className={styles.iconLeft} aria-hidden="true">{leftIcon}</span>}
-            <span className={styles.content}>{children}</span>
-            {rightIcon && <span className={styles.iconRight} aria-hidden="true">{rightIcon}</span>}
-          </>
-        )}
+        {children}
       </motion.button>
     );
   }
 );
 
 Button.displayName = 'Button';
-
-export interface IconButtonProps extends Omit<ButtonProps, 'children' | 'leftIcon' | 'rightIcon'> {
-  'aria-label': string;
-  icon: ReactNode;
-}
-
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ 'aria-label': ariaLabel, icon, size = 'md', ...props }, ref) => {
-    return (
-      <Button
-        ref={ref}
-        size={size}
-        aria-label={ariaLabel}
-        className={cn(styles.iconButton, props.className)}
-        {...props}
-      >
-        <span className={styles.iconWrapper} aria-hidden="true">
-          {icon}
-        </span>
-      </Button>
-    );
-  }
-);
-
-IconButton.displayName = 'IconButton';

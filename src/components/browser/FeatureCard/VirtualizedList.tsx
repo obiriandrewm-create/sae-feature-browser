@@ -1,5 +1,5 @@
-import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
-import { useMemo, useCallback, useRef, useEffect } from 'react';
+import { List as ReactWindowList } from 'react-window';
+import { useCallback, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Feature } from '@/types/sae';
 import { FeatureCard } from './FeatureCard';
@@ -44,17 +44,17 @@ export const VirtualizedList = ({
   emptyMessage = 'No features found',
   renderPlaceholder,
 }: VirtualizedListProps) => {
-  const listRef = useRef<List>(null);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const ListComponent = ReactWindowList as any;
 
   const handleScroll = useCallback(
-    (event: React.UIEvent<HTMLDivElement>) => {
+    (scrollTop: number) => {
       if (onScroll) {
         if (scrollTimeoutRef.current) {
           clearTimeout(scrollTimeoutRef.current);
         }
         scrollTimeoutRef.current = setTimeout(() => {
-          onScroll(event.currentTarget.scrollTop);
+          onScroll(scrollTop);
         }, 16);
       }
     },
@@ -62,13 +62,12 @@ export const VirtualizedList = ({
   );
 
   const ItemRenderer = useCallback(
-    ({ index, style }: ListChildComponentProps) => {
+    ({ index, style }: { index: number; style: React.CSSProperties }) => {
       const feature = features[index];
       if (!feature) return null;
 
-      const isSelected = selectedIds.has(feature.id);
-      const isFocused = focusedId === feature.id;
       const isBookmarked = bookmarkedIds.has(feature.id);
+      const isFocused = focusedId === feature.id;
 
       return (
         <div style={style} data-feature-id={feature.id}>
@@ -88,14 +87,6 @@ export const VirtualizedList = ({
     [features, variant, selectedIds, focusedId, bookmarkedIds, onToggleBookmark, onSelect, onCompare, showCompareButton]
   );
 
-  useEffect(() => {
-    return () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
-
   if (features.length === 0) {
     return (
       <div className={cn(styles.empty, className)} style={{ height }} role="status" aria-live="polite">
@@ -106,19 +97,18 @@ export const VirtualizedList = ({
 
   return (
     <div className={cn(styles.container, className)} style={{ height, width: itemWidth }}>
-      <List
-        ref={listRef}
+      <ListComponent
         height={height}
         itemCount={features.length}
         itemSize={itemHeight}
         itemData={features}
         width={itemWidth}
         overscanCount={overscanCount}
-        onScroll={handleScroll}
+        onScroll={(e: any) => handleScroll(e.target.scrollTop)}
         itemKey={(index: number) => features[index]?.id ?? index}
       >
-        {ItemRenderer}
-      </List>
+        {(ItemRenderer as unknown) as React.ReactNode}
+      </ListComponent>
     </div>
   );
 };

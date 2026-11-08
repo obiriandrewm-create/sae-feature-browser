@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => ({
           'vendor-motion': ['framer-motion', 'gsap'],
           'vendor-arrow': ['apache-arrow'],
           'vendor-search': ['flexsearch'],
-          'viz': ['@features/feature-detail', '@viz/FeatureSpace3D'],
+          'viz': ['@features/feature-detail/FeatureDetail'],
           'worker': ['@lib/flexsearch-worker'],
         },
         chunkFileNames: 'assets/[name]-[hash].js',

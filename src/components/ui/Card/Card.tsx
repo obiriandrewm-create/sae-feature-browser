@@ -1,42 +1,24 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import styles from './Card.module.css';
 
-export interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
-  variant?: 'default' | 'outlined' | 'elevated' | 'filled';
-  padding?: 'none' | 'sm' | 'md' | 'lg';
-  hoverable?: boolean;
-  children: ReactNode;
+export interface CardProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'ref' | 'onAnimationStart'> {
+  variant?: 'default' | 'outlined';
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  (
-    {
-      variant = 'default',
-      padding = 'md',
-      hoverable = false,
-      children,
-      className,
-      style,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, variant = 'default', children, ...props }, ref) => {
+    const variants = {
+      default: 'bg-surface border border-border',
+      outlined: 'bg-transparent border-2 border-border',
+    } as const;
+
     return (
       <motion.div
         ref={ref}
-        className={cn(
-          styles.card,
-          styles[variant],
-          styles[`padding${padding.charAt(0).toUpperCase() + padding.slice(1)}`],
-          hoverable && styles.hoverable,
-          className
-        )}
-        style={style}
-        whileHover={hoverable ? { y: -2, boxShadow: 'var(--shadow-lg)' } : undefined}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
-        {...props}
+        className={cn('rounded-xl p-6 transition-all duration-200', variants[variant], className)}
+        whileHover={{ boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3)' }}
+        {...(props as Record<string, unknown>)}
       >
         {children}
       </motion.div>
@@ -46,73 +28,15 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = 'Card';
 
-export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  title: ReactNode;
-  subtitle?: ReactNode;
-  action?: ReactNode;
+export interface CardHeaderProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'ref' | 'onAnimationStart'> {
+  title?: string;
 }
 
-export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ title, subtitle, action, className, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(styles.header, className)}
-        {...props}
-      >
-        <div className={styles.headerContent}>
-          <h3 className={styles.title}>{title}</h3>
-          {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-        </div>
-        {action && <div className={styles.headerAction}>{action}</div>}
-        {children}
-      </div>
-    );
-  }
+export const CardHeader = ({ title, className, children, ...props }: CardHeaderProps) => (
+  <div className={cn('mb-4 flex items-center gap-2', className)} {...(props as Record<string, unknown>)}>
+    {title && <span className="font-semibold text-text">{title}</span>}
+    {children}
+  </div>
 );
 
 CardHeader.displayName = 'CardHeader';
-
-export interface CardContentProps extends HTMLAttributes<HTMLDivElement> {}
-
-export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(styles.content, className)}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-
-CardContent.displayName = 'CardContent';
-
-export interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {}
-
-export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(styles.footer, className)}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-
-CardFooter.displayName = 'CardFooter';
-
-export const CardCompound = Object.assign(Card, {
-  Header: CardHeader,
-  Content: CardContent,
-  Footer: CardFooter,
-});
-
-export type CardCompoundType = typeof CardCompound;

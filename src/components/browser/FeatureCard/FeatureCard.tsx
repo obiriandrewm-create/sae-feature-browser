@@ -1,12 +1,12 @@
-import { forwardRef, useMemo } from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ActivationSparkline } from '@/components/charts/ActivationSparkline/ActivationSparkline';
 import { TokenHighlighter } from '@/components/charts/TokenHighlighter/TokenHighlighter';
 import { Feature } from '@/types/sae';
 import styles from './FeatureCard.module.css';
 
-export interface FeatureCardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+export interface FeatureCardProps {
   feature: Feature;
   variant?: 'compact' | 'detailed' | 'comparison';
   isFocused?: boolean;
@@ -15,6 +15,8 @@ export interface FeatureCardProps extends Omit<HTMLMotionProps<'div'>, 'children
   onSelect: (id: string) => void;
   onCompare?: (id: string) => void;
   showCompareButton?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(
@@ -34,18 +36,14 @@ export const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(
     },
     ref
   ) => {
-    const cardStyle = useMemo(() => ({
-      ...style,
-      transform: isFocused ? 'var(--fisheye-scale, 1)' : undefined,
-    }), [style, isFocused]);
+    const cardStyle = { ...style } as React.CSSProperties;
 
     return (
       <motion.div
         ref={ref}
         className={cn(styles.card, styles[variant], className)}
-        style={cardStyle as React.CSSProperties}
-        whileHover={{ y: -2, boxShadow: 'var(--shadow-lg)' }}
-        tapHighlight={{ opacity: 0.8 }}
+        style={cardStyle}
+        whileHover={{ y: -2, boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3)' }}
         onTap={() => onSelect(feature.id)}
         {...props}
       >
